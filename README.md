@@ -1,0 +1,2 @@
+# shopredux
+redux
