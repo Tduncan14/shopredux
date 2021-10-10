@@ -1,9 +1,24 @@
+import Header from  './containers/Header';
+import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import ProductListing from './containers/ProductListing';
+import ProductComponent from './containers/ProductComponent';
+import ProductDetails from './containers/ProductDetails';
+import './App.css'
 
 
 function App() {
   return (
     <div className="App">
-     Hello
+     <Router>
+       <Header/>
+       <Switch>
+         <Route  exact path="/" component = {ProductListing} />
+         <Route path="/product/:id" component={ProductDetails}/>
+         <Route path="/Component" component={ProductComponent}/>
+
+         
+       </Switch>
+     </Router>
     </div>
   );
 }
