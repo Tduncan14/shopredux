@@ -12,14 +12,22 @@ import { useSelector } from 'react-redux';
 
 const ProductComponent = () => {
 
-    const products = useSelector((state) =>(state.allProducts.products))
+    const products = useSelector((state) => state.allProducts.products)
 
     console.log(products,' the products')
+    
+    fetch('https://fakestoreapi.com/products/1')
+    //             .then(res=>res.json())
+    //             .then(json=>console.log(json))
+
+
+
 
 
  const renderList = products.map((product) => {
 
     const {id,title,image,price,category} = product
+
    return( <div  key ={id} className="four column wide">
        <Link to={`/product/${id}`}>
     <div className="ui link cards">
@@ -51,10 +59,9 @@ const ProductComponent = () => {
     //  const {id,title,} = products[0]
 
 
-    return( <>{renderList}</>
+    return <>{renderList}</>
 
-        )
-       
+        
 
 }
 
