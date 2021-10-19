@@ -2,7 +2,7 @@ import {useEffect,useState} from 'react';
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
-import { selectedProduct } from '../redux/actions/product';
+import { selectedProduct,removeProduct } from '../redux/actions/product';
 
 
 const ProductDetails = ({match}) => {
@@ -14,9 +14,12 @@ const ProductDetails = ({match}) => {
 
 
     const product = useSelector(state => state.product)
+    const {image,title,price,category,description} = product;
     const dispatch = useDispatch();
-   
 
+
+
+    console.log(product,'this is the product')
 
     const fetchProductDetail =  async () => {
 
@@ -27,6 +30,21 @@ const ProductDetails = ({match}) => {
         
          dispatch(selectedProduct(response.data))
     }
+
+
+    useEffect(()=>{
+
+        if(id && id !== "")   fetchProductDetail()
+
+
+
+
+        return () => {
+            dispatch(removeProduct())
+        }
+
+
+    },[id])
 
 
 
@@ -118,9 +136,31 @@ const ProductDetails = ({match}) => {
 
     // console.log(Object.values
     //     (product.allProducts.product))
-    return(<> hi </>)
-    
+    return(
+        <>
+         {Object.keys(product).length === 0 ? <div> ... Loading items </div>: (
 
+            
+<div className="ui link cards">
+<div className="card">
+    <div className="image">
+        <img src={image} alt={title}/>
+     
+    </div>
+    <div className="content">
+
+    </div>
+    <div className="header">
+     {title}
+    </div>
+    <div className="meta price">${price}</div>
+    <div className="meta">{category}</div>
+
+        </div>
+    </div>
+    )}   
+    </>
+    )
 
     }
 
